@@ -8,8 +8,8 @@ class Bird:
         pygame.init()  # Init pygame
         self.gamerunning = True
         self.xScreen, self.yScreen = 900, 900  # Pour créer l'écran
-        linkBackGround = './data/background.jpg'  # lien vers l'image de background
-        self.linkImgBird = "./data/bird.png"  # lien vers l'image de l'oiseau
+        linkBackGround = './background.jpg'  # lien vers l'image de background
+        self.linkImgBird = "./bird.png"  # lien vers l'image de l'oiseau
         self.screen = pygame.display.set_mode(
             (self.xScreen, self.yScreen))  # Créer dimension d'écran
         pygame.display.set_caption("Projet Python - Flappybird")
@@ -61,9 +61,9 @@ class Bird:
         yColunmChangeTop = -self.ySizeColunm / 2 - maginColunm + \
                            self.colunmChange  # distance entre la colonne en bas et la colonne en haute est 80*2
         yColunmChangeBotton = self.ySizeColunm / 2 + maginColunm + self.colunmChange
-        self.image_draw("./data/colunm.png", self.xColunm,
+        self.image_draw("./colunm.png", self.xColunm,
                         yColunmChangeTop, self.xSizeColunm, self.ySizeColunm) # pour créer la forme de la colonne en haut
-        self.image_draw("./data/colunm.png", self.xColunm,
+        self.image_draw("./colunm.png", self.xColunm,
                         yColunmChangeBotton, self.xSizeColunm, self.ySizeColunm)  # pour créer la forme de la colonne en bas
         self.xColunm = self.xColunm - self.Vcolunm
         if self.xColunm < -100:
@@ -98,7 +98,7 @@ class Bird:
     def run(self):
         while self.gamerunning:
             self.screen.blit(self.background, (0, 0))
-            self.music("./data/moonlight.wav")
+            self.music("./moonlight.wav")
             for event in pygame.event.get():  # capter des évenement
                 # print(event)
                 if event.type == pygame.QUIT:  # pour quitter
