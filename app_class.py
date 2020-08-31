@@ -122,7 +122,7 @@ class Bird:
             if (self.yBird + self.ySizeBird > self.yScreen) or self.yBird < 0:
                 self.yBird = self.yScreen / 2
                 self.checkLost = True
-            self.Vcolunm = 10 if self.scores < 1 else 10 + self.scores / 5  # Le score augmente de 1 ) chaque fois que l'oiseau dépasse une colonne sans la toucher
+            self.Vcolunm = 10 if self.scores < 1 else 10 + self.scores / 5  # Le score augmente de 1 à chaque fois que l'oiseau dépasse une colonne sans la toucher
             self.VBirdDown = 7 if self.scores < 1 else 7 + \
                                                        self.scores / 10  
             while (self.checkLost):  # Si l'oiseau touche des objets => le jouer perd
