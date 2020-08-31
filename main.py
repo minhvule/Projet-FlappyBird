@@ -2,6 +2,4 @@ from app_class import *
 
 if __name__ == "__main__":
     bird = Bird()
-    bird.run()
-
-
+    bird.starting_page()
