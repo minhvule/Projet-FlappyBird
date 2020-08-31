@@ -3,6 +3,7 @@ import random
 from pygame import mixer
 
 class Bird:
+
     def __init__(self):
         pygame.init()  # Init pygame
         self.gamerunning = True
@@ -26,7 +27,7 @@ class Bird:
         # ------------------------------
         self.xColunm = self.yScreen + 200  # créer premier colonne
         self.yColunm = 0
-        self.xSizeColunm = 150  # largeur de la colonne
+        self.xSizeColunm = 100  # largeur de la colonne
         self.ySizeColunm = self.yScreen
         self.Vcolunm = 10  # la vitesse déplacer de la colonne
         self.colunmChange = 0
@@ -37,6 +38,12 @@ class Bird:
     def music(self, url):  # pour la musique
         bulletSound = mixer.Sound(url)
         bulletSound.play()
+
+    def StartText(self):
+         font = pygame.font.SysFont("arial", 20, bold=1)
+         StartText = font.render("START", True, (242, 242, 242))
+         self.screen.blit(StartText, (420,415))
+
 
     def image_draw(self, url, xLocal, yLocal, xImg, yImg):  # impression l'image
         PlanesImg = pygame.image.load(url)
@@ -66,7 +73,29 @@ class Bird:
             self.scores += 1
         return yColunmChangeTop + self.ySizeColunm, yColunmChangeBotton  # rentre la position des colonne
 
-    def run(self): 
+
+    def starting_page(self):
+        while True:
+            self.screen.fill((0, 0, 0))
+            self.screen.blit(self.background, (0, 0))
+            x,y = pygame.mouse.get_pos()
+            button1 = pygame.Rect(350,400,200,50)
+            self.StartText()
+            pygame.draw.rect(self.screen, (242,242,242),button1,6)
+            if button1.collidepoint(x,y):
+                if click:
+                    self.run()
+            click = False
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        click = True
+            pygame.display.update()
+
+
+    def run(self):
         while self.gamerunning:
             self.screen.blit(self.background, (0, 0))
             self.music("./data/moonlight.wav")
@@ -76,6 +105,7 @@ class Bird:
                     self.gamerunning = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     self.yBird -= self.VBirdUp  # l'oiseau monte
+
                 if event.type == pygame.KEYDOWN:  
                     if event.key == pygame.K_SPACE:
                         self.yBird -= self.VBirdUp  # L'oiseau monte
@@ -113,7 +143,7 @@ class Bird:
                 self.show_score(100, 100, "Scores:{}".format(
                     self.scores), 40)  # Annoncer point gagné
                 self.show_score(self.xScreen / 2 - 100, self.yScreen /
-                                2 - 100, "GAME OVER", 50)  # Pour annoncer la perde de joueur
+                                2 - 100, "PERDUUUUU", 50)  # Pour annoncer la perde de joueur
                 self.Vcolunm = 6
                 self.VBirdDown = 7
                 pygame.display.update()
@@ -125,6 +155,6 @@ class Bird:
             clock = pygame.time.Clock()
             clock.tick(80)
 
+    def loadButtons(self):
+        self.playingButtons.append(Button(20, 40, 7, 40, colour=(27,142,207), text="JOUER"))
 
-
-  
