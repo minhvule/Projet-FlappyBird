@@ -141,7 +141,7 @@ class Bird:
                 self.show_score(100, 100, "Scores:{}".format(
                     self.scores), 40)  #  Pour afficher le score
                 self.show_score(self.xScreen / 2 - 100, self.yScreen /
-                                2 - 100, "PERDUUUUU", 50)  # Pour annoncer au joueur qu'il a perdu
+                                2 - 100, "GAME OVER", 50)  # Pour annoncer au joueur qu'il a perdu
                 self.Vcolunm = 6
                 self.VBirdDown = 7
                 pygame.display.update()
