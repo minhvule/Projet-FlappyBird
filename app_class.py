@@ -5,37 +5,36 @@ from pygame import mixer
 class Bird:
 
     def __init__(self):
-        pygame.init()  # Init pygame
-        self.gamerunning = True
-        self.xScreen, self.yScreen = 900, 900  # Pour créer l'écran
-        linkBackGround = './background.jpg'  # lien vers l'image de background
-        self.linkImgBird = "./bird.png"  # lien vers l'image de l'oiseau
+        pygame.init()  # Initialisation de tous les modules de Pygame
+        self.gamerunning = True # Intitialisation de l'attribut à True
+        self.xScreen, self.yScreen = 900, 900  # Création de la fenêtre
+        linkBackGround = './data/background.jpg'  # permet d'utiliser une image comme fond
+        self.linkImgBird = "./data/bird.png"  # lien pour l'image de l'oiseau
         self.screen = pygame.display.set_mode(
-            (self.xScreen, self.yScreen))  # Créer dimension d'écran
+            (self.xScreen, self.yScreen))  # Créer les dimensions de l'écran
         pygame.display.set_caption("Projet Python - Flappybird")
         self.background = pygame.image.load(linkBackGround)
         icon = pygame.image.load(self.linkImgBird)
         pygame.display.set_icon(icon)
         self.playingButtons = []
-        # --------------------Créer fonction de l'oiseau------------------------------------
-        self.xSizeBird = 60  # fixer la hauteur de l'oiseau
-        self.ySizeBird = 50  # fixer la largeur de l'oiseau
-        self.xBird = self.xScreen / 3  # position initial de l'oiseau
-        self.yBird = self.yScreen / 2
-        self.VBirdUp = 70  # la vitesse de l'oiseau lorsqu'il s'en vole
-        self.VBirdDown = 7  # la vitesse de l'oiseau lorsqu"il tombe 
-        # ---------------------Créer fonction des colonnes----------------------------------
-        self.xColunm = self.yScreen + 200  # créer la position de la première colonne
+        # --------------------------------------------------------
+        self.xSizeBird = 60  # la taille du oiseau
+        self.ySizeBird = 50  # largeur du oiseau
+        self.xBird = self.xScreen / 3  # position initiale x du oiseau
+        self.yBird = self.yScreen / 2  # position initiale y du oiseau
+        self.VBirdUp = 70  # la vitesse à laquelle saute l'oiseau
+        self.VBirdDown = 7  # la vitesse à laquelle tombe l'oiseau
+        # ------------------------------
+        self.xColunm = self.yScreen + 100  # création de la première colonne
         self.yColunm = 0
-        self.xSizeColunm = 100  # fixer la largeur de la colonne
+        self.xSizeColunm = 100  # largeur de la colonne
         self.ySizeColunm = self.yScreen
-        self.Vcolunm = 10  # la vitesse d'apparaît de la colonne
+        self.Vcolunm = 10  
         self.colunmChange = 0
 
-        self.scores = 0 # le point initial de joueur qui commence par 0
+        self.scores = 0
         self.checkLost = False
-
-    def music(self, url):  # pour créer la musique
+    def music(self, url):  # permet d'ajouter une musique pendant la partie
         bulletSound = mixer.Sound(url)
         bulletSound.play()
 
@@ -67,7 +66,7 @@ class Bird:
                         yColunmChangeBotton, self.xSizeColunm, self.ySizeColunm)  # pour créer la forme de la colonne en bas
         self.xColunm = self.xColunm - self.Vcolunm
         if self.xColunm < -100:
-            self.xColunm = self.xScreen  # créer nouvelle colonne
+            self.xColunm = self.xScreen  # créer une nouvelle colonne
             # Random distance entre les colonne
             self.colunmChange = random.randint(-150, 150)
             self.scores += 1
@@ -99,7 +98,7 @@ class Bird:
         while self.gamerunning:
             self.screen.blit(self.background, (0, 0))
             self.music("./moonlight.wav")
-            for event in pygame.event.get():  # capter des évenement
+            for event in pygame.event.get():  # capter des évenements
                 # print(event)
                 if event.type == pygame.QUIT:  # pour quitter
                     self.gamerunning = False
@@ -123,7 +122,7 @@ class Bird:
             if (self.yBird + self.ySizeBird > self.yScreen) or self.yBird < 0:
                 self.yBird = self.yScreen / 2
                 self.checkLost = True
-            self.Vcolunm = 10 if self.scores < 1 else 10 + self.scores / 5  # la vitesse d'apparaît de la colonne agrémenté au fur à mesure
+            self.Vcolunm = 10 if self.scores < 1 else 10 + self.scores / 5  # Le score augmente de 1 ) chaque fois que l'oiseau dépasse une colonne sans la toucher
             self.VBirdDown = 7 if self.scores < 1 else 7 + \
                                                        self.scores / 10  
             while (self.checkLost):  # Si l'oiseau touche des objets => le jouer perd
@@ -140,9 +139,9 @@ class Bird:
                         self.checkLost = False
                         self.scores = 0
                 self.show_score(100, 100, "Scores:{}".format(
-                    self.scores), 40)  #  Pour afficher le point gagné
+                    self.scores), 40)  #  Pour afficher le score
                 self.show_score(self.xScreen / 2 - 100, self.yScreen /
-                                2 - 100, "PERDUUUUU", 50)  # Pour annoncer la perde de joueur
+                                2 - 100, "PERDUUUUU", 50)  # Pour annoncer au joueur qu'il a perdu
                 self.Vcolunm = 6
                 self.VBirdDown = 7
                 pygame.display.update()
@@ -153,7 +152,3 @@ class Bird:
             pygame.display.update()  # pour mettre à jour le jeu
             clock = pygame.time.Clock()
             clock.tick(80)
-
-    def loadButtons(self):
-        self.playingButtons.append(Button(20, 40, 7, 40, colour=(27,142,207), text="JOUER"))
-
