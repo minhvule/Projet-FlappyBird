@@ -10,4 +10,4 @@ Tout d’abord assurez-vous que Python 3 est bien installé.
   	pip install pygame
 
 ## Exécution : 
-  	python3 main.py
+  	python main.py
